@@ -7,3 +7,11 @@ Create a banking app (user console for now), that would do few simple tasks (for
  - Code must be speared through different modules (separate files)
  - Logging, Git should be in place. 
  - Use class structures and access modifiers (private and protected)
+
+
+ different modules:
+ - user class
+ - bank_service class
+ - logging info
+ - main/banking_app
+ 
