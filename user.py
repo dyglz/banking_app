@@ -1,41 +1,95 @@
-#  - Ask user to create account 
+# Ask user to [create account] 
 # (In that case you need to provide your email address, 
 # and then the app will give you ID and password)
 
+
+# [Log In] to bank service (you check email and password . 
+# Email and ID should be linked) email -> ID -> password.
+
+# separate modules, class structures and [access modifiers] (private and protected)
+
 import random
 import string
+from logging_info import LoggingInfo
 from typing import Dict, List
 
 class User:
-    def __init__(self, email: str, id_number: str, password: str) -> Dict[str]:
+    def __init__(self, email: str, id_number: str, password: str):
         self.email = email
         self.id_number = id_number
         self.password = password
-        self.all_users: List[User] = []
         
     def __str__(self):
-        return f"Email: {self.email}, ID Number: {self.id_number}, Password: {self.password}"
+        return f"ID Number: {self.id_number}, Email: {self.email}, Password: {self.password}"
     
     
-    def email_validation(email):
-        at_sign_count = email.count("@")
-        if at_sign_count != 1:
+class AccountGenerator:
+    def __init__(self):
+        self.all_accounts: List[User] = []
+    
+            
+    def create_account(self) -> bool:
+        email = self.email_validation()
+        if email:
+            LoggingInfo.log_info("User entered a valid email address.")
+            id_number = self.generate_id()
+            password = self.generate_password()
+            
+            new_user = User(email, id_number, password)
+            self.all_accounts.append(new_user)
+            self.all_accounts.sort(key=lambda x: x.id_number)
+            LoggingInfo.log_info(f"Account created: {new_user}")
+            print(f"Account created: {new_user}")
+            return True
+        else:
+            print("Email is not valid!")
+            LoggingInfo.log_warning("User entered invalid email.")
             return False
-        elif at_sign_count == 1:
-            email_parts = email.split("@")
-            domain = email_parts[1]
-            dot_sign_count = domain.count(".")
-            if dot_sign_count < 1:
-                return False
-            elif dot_sign_count >= 1:
-                last_dot_sign = domain.rfind(".")
-                if len(domain) - int(last_dot_sign + 1) >= 2:
-                    return True
+    
+    def list_all_accounts(self) -> None:
+        for index, user in enumerate(self.all_accounts, start=1):
+            print(f"{index}. {user}")
+            
+    
+    def email_validation(self) -> str | bool:
+        while True:
+            user_input = input("Enter your email address: ").lower()
+            email = user_input.replace(" ", "")
+            if email == "":
+                print("Nothing entered!")
+                continue
+            else:
+                at_sign_count = email.count("@")
+                if at_sign_count != 1:
+                    # LoggingInfo.log_warning("Email does not contain "@"")
+                    return False
                 else:
-                    return False  
+                    email_parts = email.split("@")
+                    domain = email_parts[1]
+                    dot_sign_count = domain.count(".")
+                    if dot_sign_count < 1:
+                        return False
+                    else:
+                        last_dot_sign = domain.rfind(".")
+                        if len(domain) - int(last_dot_sign + 1) >= 2:
+                            return email
+                        else:
+                            return False  
+            
+    def login(self) -> bool:
+        email = input("Enter your email: ").lower()
+        password = input("Enter your password: ")
         
+        for user in self.all_accounts:
+            if user.email == email and user.password == password:
+                print("Login Successful!")
+                return True
+        
+        print("Invalid email or password.")
+        return False
+    
+    
 
-        
     def generate_id(self) -> str:
         digits = random.choices(string.digits, k=4)
         ascii_letters = random.choices(string.ascii_uppercase, k=6)
@@ -56,16 +110,6 @@ class User:
         return password
 
 
-
-
-
-
-
-user = User("example@test.com")
-test = user.generate_id()
-test1 = user.generate_password()
-print(test)
-print(test1)
 
 
     
