@@ -50,7 +50,5 @@ class EmailValidator:
             return False
         else:
             last_dot_sign = domain.rfind(".")
-            if len(domain) - int(last_dot_sign + 1) >= 2:
-                return True
-            else:
-                return False              
+            return len(domain) - int(last_dot_sign + 1) >= 2
+   

@@ -31,6 +31,7 @@ class AccountGenerator:
     def list_all_accounts(self) -> None:
         for index, user in enumerate(self.all_accounts, start=1):
             print(f"{index}. {user}")
+        return None
 
             
     def login(self) -> bool:
