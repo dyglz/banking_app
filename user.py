@@ -11,7 +11,7 @@
 import random
 import string
 from logging_info import LoggingInfo
-from typing import List
+from typing import List, Optional
 
 class User:
     def __init__(self, email: str, id_number: str, password: str):
@@ -48,11 +48,11 @@ class AccountGenerator:
     
     
     
-    def ev_user_input(self) -> str:
+    def ev_user_input(self) -> Optional[str]:
         user_input = input("Enter your email address: ").lower()
         email = user_input.replace(" ", "")
         if email == "":
-            return False
+            return None
         return email
         
         
