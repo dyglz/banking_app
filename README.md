@@ -20,7 +20,8 @@ Create a **Banking App** (user console for now), that would do few simple tasks 
 
 ## **Files:** 
  - banking_app.py (main code to run the program)
- - user.py (define user, validate email, generate ID and password, log in)
+ - user.py (User class, EmailValidator class)
+ - account_generator.py (Create account, Log in, List all accounts)
  - logging_info.py
 
  

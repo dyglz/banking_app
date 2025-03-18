@@ -1,6 +1,7 @@
 
 from logging_info import LoggingInfo
-from user_first import AccountGenerator
+from account_generator import AccountGenerator
+from user import EmailValidator
 
 LoggingInfo.configure_logging()
 LoggingInfo.log_info("BestBank App is Opened.")
@@ -21,11 +22,17 @@ while True:
             elif menu_selection == 1:
                 print("------  Create an account  -------")
                 LoggingInfo.log_info("Trying to Create a New Account.")
-                account_generator.create_account()
+                if account_generator.create_account():
+                    print("Account successfully created!")
+                else:
+                    print("Account not created.")                
             elif menu_selection == 2:
                 print("----  Log In to your account  ----")
                 LoggingInfo.log_info("Trying to Log In.")
-                account_generator.login()       
+                if account_generator.login():
+                    print("You logged in!\n")
+                else:
+                    print("Invalid email or password.\n")                           
             elif menu_selection == 3:
                 print("---------  Account List  ---------")
                 LoggingInfo.log_warning("Sensitive: Displaying Account List with All Users [ID, Email and Password].")
