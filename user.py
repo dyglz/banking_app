@@ -1,12 +1,3 @@
-# Ask user to [create account] 
-# (In that case you need to provide your email address, 
-# and then the app will give you ID and password)
-
-
-# [Log In] to bank service (you check email and password . 
-# Email and ID should be linked) email -> ID -> password.
-
-# separate modules, class structures and [access modifiers] (private and protected)
 
 import random
 import string
@@ -31,19 +22,19 @@ class AccountGenerator:
     def create_account(self) -> bool:
         email = self.ev_user_input()
         if self.email_validation(email):
-            LoggingInfo.log_info("User entered a valid email address.")
+            LoggingInfo.log_info("User Entered a Valid Email Address.")
             id_number = self.generate_id()
             password = self.generate_password()
             
             new_user = User(email, id_number, password)
             self.all_accounts.append(new_user)
             self.all_accounts.sort(key=lambda x: x.id_number)
-            LoggingInfo.log_info(f"Account created: {new_user}")
-            print(f"Account created: {new_user}")
+            LoggingInfo.log_info(f"Account Created: {new_user}")
+            print(f"Account created: {new_user}\n")
             return True
         else:
-            print("Invalid entry!")
-            LoggingInfo.log_warning("User entered invalid email.")
+            print("Invalid entry!\n")
+            LoggingInfo.log_warning("User Entered an Invalid Email Address.")
             return False
     
     
@@ -100,12 +91,12 @@ class AccountGenerator:
         
         for user in self.all_accounts:
             if user.email == email and user.password == password:
-                print("Login Successful!")
-                LoggingInfo.log_info("User logged in successfully.")
+                print("You logged in!\n")
+                LoggingInfo.log_info("LOGIN Successful.")
                 return True
         
-        print("Invalid email or password.")
-        LoggingInfo.log_warning("Log in unsuccessful")
+        print("Invalid email or password.\n")
+        LoggingInfo.log_warning("LOGIN Unsuccessful. Invalid email or password.")
         return False
     
     

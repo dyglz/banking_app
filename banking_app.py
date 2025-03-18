@@ -1,12 +1,3 @@
-# Ask user to [create account] 
-# (In that case you need to provide your email address, 
-# and then the app will give you ID and password)
-
-
-# [Log In] to bank service (you check email and password . 
-# Email and ID should be linked) email -> ID -> password.
-
-# separate modules, class structures and [access modifiers] (private and protected)
 
 from logging_info import LoggingInfo
 from user import AccountGenerator
@@ -28,25 +19,25 @@ while True:
                 LoggingInfo.log_info("BestBank App is Closed.")
                 break
             elif menu_selection == 1:
-                print("===     Create an account      ===")
-                LoggingInfo.log_info("Trying to create a new account.")
+                print("------  Create an account  -------")
+                LoggingInfo.log_info("Trying to Create a New Account.")
                 account_generator.create_account()
             elif menu_selection == 2:
-                print("===   Log In to your account   ===")
-                LoggingInfo.log_info("Trying to log in.")
+                print("----  Log In to your account  ----")
+                LoggingInfo.log_info("Trying to Log In.")
                 account_generator.login()       
             elif menu_selection == 3:
-                print("===   Account List   ===")
-                LoggingInfo.log_warning("Sensitive: Displaying account list with user ID, email and password.")
+                print("---------  Account List  ---------")
+                LoggingInfo.log_warning("Sensitive: Displaying Account List with All Users [ID, Email and Password].")
                 account_generator.list_all_accounts()             
         else:
-            print("Invalid selection!")
+            print("Invalid selection!\n")
             LoggingInfo.log_warning("User Entered Non Existing Number in Menu Selection.")
     except ValueError:
-        print("Invalid symbol entered!")
+        print("Invalid symbol entered!\n")
         LoggingInfo.log_warning("User Entered Symbol/Character in Menu Selection.")
     except Exception as e:
-        print(f"Unexpected error occured: {e}")
+        print(f"Unexpected error occured: {e}\n")
         LoggingInfo.log_critical(f"Unexpected Error: {str(e)}.")
 
 
