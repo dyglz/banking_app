@@ -11,7 +11,7 @@
 import random
 import string
 from logging_info import LoggingInfo
-from typing import Dict, List
+from typing import List
 
 class User:
     def __init__(self, email: str, id_number: str, password: str):
@@ -29,8 +29,8 @@ class AccountGenerator:
     
             
     def create_account(self) -> bool:
-        email = self.email_validation()
-        if email:
+        email = self.ev_user_input()
+        if self.email_validation(email):
             LoggingInfo.log_info("User entered a valid email address.")
             id_number = self.generate_id()
             password = self.generate_password()
@@ -42,39 +42,57 @@ class AccountGenerator:
             print(f"Account created: {new_user}")
             return True
         else:
-            print("Email is not valid!")
+            print("Invalid entry!")
             LoggingInfo.log_warning("User entered invalid email.")
             return False
     
+    
+    
+    def ev_user_input(self) -> str:
+        user_input = input("Enter your email address: ").lower()
+        email = user_input.replace(" ", "")
+        if email == "":
+            return False
+        return email
+        
+        
+    def email_validation(self, email: str) -> bool: # nesamone
+        if not email:
+            return False
+        if not self.ev_at_sign_count(email):
+            return False
+        if not self.ev_email_parts(email):
+            return False     
+        return True        
+
+
+    def ev_at_sign_count(self, email: str) -> bool:
+        at_sign_count = email.count("@")
+        if at_sign_count != 1:
+            return False
+        else:
+            return True   
+        
+        
+    def ev_email_parts(self, email: str) -> bool:
+        email_parts = email.split("@")
+        domain = email_parts[1]
+        dot_sign_count = domain.count(".")
+        if dot_sign_count < 1:
+            return False
+        else:
+            last_dot_sign = domain.rfind(".")
+            if len(domain) - int(last_dot_sign + 1) >= 2:
+                return True
+            else:
+                return False              
+          
+
+
     def list_all_accounts(self) -> None:
         for index, user in enumerate(self.all_accounts, start=1):
             print(f"{index}. {user}")
-            
-    
-    def email_validation(self) -> str | bool:
-        while True:
-            user_input = input("Enter your email address: ").lower()
-            email = user_input.replace(" ", "")
-            if email == "":
-                print("Nothing entered!")
-                continue
-            else:
-                at_sign_count = email.count("@")
-                if at_sign_count != 1:
-                    # LoggingInfo.log_warning("Email does not contain "@"")
-                    return False
-                else:
-                    email_parts = email.split("@")
-                    domain = email_parts[1]
-                    dot_sign_count = domain.count(".")
-                    if dot_sign_count < 1:
-                        return False
-                    else:
-                        last_dot_sign = domain.rfind(".")
-                        if len(domain) - int(last_dot_sign + 1) >= 2:
-                            return email
-                        else:
-                            return False  
+
             
     def login(self) -> bool:
         email = input("Enter your email: ").lower()
@@ -83,6 +101,7 @@ class AccountGenerator:
         for user in self.all_accounts:
             if user.email == email and user.password == password:
                 print("Login Successful!")
+                LoggingInfo.log_info("User logged in successfully.")
                 return True
         
         print("Invalid email or password.")

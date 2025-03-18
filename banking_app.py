@@ -8,9 +8,8 @@
 
 # separate modules, class structures and [access modifiers] (private and protected)
 
-import logging
 from logging_info import LoggingInfo
-from user import User, AccountGenerator
+from user import AccountGenerator
 
 LoggingInfo.configure_logging()
 LoggingInfo.log_info("BestBank App is Opened.")
@@ -38,7 +37,7 @@ while True:
                 account_generator.login()       
             elif menu_selection == 3:
                 print("===   Account List   ===")
-                LoggingInfo.log_info("Sensitive: Displaying account list with user ID, email and password.")
+                LoggingInfo.log_warning("Sensitive: Displaying account list with user ID, email and password.")
                 account_generator.list_all_accounts()             
         else:
             print("Invalid selection!")
