@@ -105,6 +105,7 @@ class AccountGenerator:
                 return True
         
         print("Invalid email or password.")
+        LoggingInfo.log_warning("Log in unsuccessful")
         return False
     
     
