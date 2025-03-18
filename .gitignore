@@ -1,0 +1,5 @@
+.venv/
+.txt
+.pyc
+__pycache__/
+bank_app_log.txt
