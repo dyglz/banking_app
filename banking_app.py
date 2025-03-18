@@ -1,6 +1,6 @@
 
 from logging_info import LoggingInfo
-from user import AccountGenerator
+from user_first import AccountGenerator
 
 LoggingInfo.configure_logging()
 LoggingInfo.log_info("BestBank App is Opened.")
